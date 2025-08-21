@@ -14,4 +14,8 @@ public class TransacaoRepository {
     public void salvarTransacao(Transacao transacao) {
         listaDeTransacoes.add(transacao);
     }
+
+    public List<Transacao> pegarTransacoes() {
+        return listaDeTransacoes;
+    }
 }
