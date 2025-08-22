@@ -16,6 +16,10 @@ public class TransacaoRepository {
     }
 
     public List<Transacao> pegarTransacoes() {
-        return listaDeTransacoes;
+            return listaDeTransacoes;
+    }
+
+    public void deletarTransacoes() {
+        listaDeTransacoes.clear();
     }
 }

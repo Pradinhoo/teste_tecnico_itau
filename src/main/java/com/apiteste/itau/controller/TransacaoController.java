@@ -5,10 +5,7 @@ import com.apiteste.itau.service.TransacaoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transacao")
@@ -26,5 +23,9 @@ public class TransacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
+    @DeleteMapping
+    ResponseEntity<Void> deletarTransacoes() {
+        transacaoService.deletarTransacoes();
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

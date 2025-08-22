@@ -24,4 +24,8 @@ public class TransacaoServiceImpl implements TransacaoService {
           Transacao transacao = new Transacao(novaTransacaoDTO.valor(), novaTransacaoDTO.dataHora());
           transacaoRepository.salvarTransacao(transacao);
      }
+
+     public void deletarTransacoes() {
+          transacaoRepository.deletarTransacoes();
+     }
 }
