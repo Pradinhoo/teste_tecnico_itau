@@ -18,17 +18,26 @@ public class EstatisticaServiceImpl implements EstatisticaService {
         this.transacaoRepository = transacaoRepository;
     }
 
-    public EstatisticasDTO exibirEstatistica() {
+    public EstatisticasDTO exibirEstatistica(Integer segundos) {
         List<Transacao> todasAsTransacoes = transacaoRepository.pegarTransacoes();
 
-        List<Transacao> ultimos60Segundos = todasAsTransacoes.stream()
-                .filter(t -> t.getDataHora().isAfter(OffsetDateTime.now().minusSeconds(60)))
+        Integer segundosParaUsar;
+
+        if (segundos != null) {
+            segundosParaUsar = segundos;
+        } else {
+            segundosParaUsar = 60;
+        }
+
+        List<Transacao> ultimosSegundos = todasAsTransacoes.stream()
+                .filter(t -> t.getDataHora().isAfter(OffsetDateTime.now().minusSeconds(segundosParaUsar)))
                 .toList();
 
-        DoubleSummaryStatistics stats = ultimos60Segundos.stream()
+        DoubleSummaryStatistics stats = ultimosSegundos.stream()
                 .mapToDouble(Transacao::getValor)
                 .summaryStatistics();
 
+        System.out.println("Segundos usados " + segundosParaUsar);
         return new EstatisticasDTO(stats.getCount(), stats.getSum(), stats.getAverage(), stats.getMin(), stats.getMax());
     }
 }
